@@ -18,7 +18,7 @@ express()
       const client = await pool.connect();
 
       // Get all data from the database
-      const result = await client.query('SELECT id, sensor, location, temperature, altitude, pressure, timestamp FROM readings');
+      const result = await client.query('SELECT id, sensor, location, temperature, humidity, pressure, altitude, timestamp FROM readings');
       const results = result.rows;
       
       // Make the web page using the data
@@ -30,8 +30,9 @@ express()
           <td>${elm.sensor}</td>
           <td>${elm.location}</td>
           <td>${elm.temperature}</td>
-          <td>${elm.altitude}</td>
+          <td>${elm.humidity}</td>
           <td>${elm.pressure}</td>
+	  <td>${elm.altitude}</td>
           <td>${elm.timestamp}</td>
         </tr>`
       });
@@ -50,8 +51,9 @@ express()
               <th>Sensor</th>
               <th>Location</th>
               <th>Temperature (°C)</th>
-              <th>Altitude (m)</th>
+              <th>Humidity (%)</th>
               <th>Pressure (Pa)</th>
+	      <th>Altitude (m)</th>
               <th>Timestamp</th>
             </tr>
             ${readings}
@@ -77,13 +79,14 @@ express()
       var sensor = req.body.sensor;
       var location = req.body.location;
       var temperature = req.body.temperature;
-      var altitude = req.body.altitude;
+      var humidity = req.body.humidity;
       var pressure = req.body.pressure;
+      var altitude = req.body.altitude;
       
       var timestamp = await client.query("SELECT (CURRENT_TIMESTAMP(0) AT TIME ZONE 'CXT')::text;");
       var ts = timestamp.rows[0].timezone;
 
-      client.query(`INSERT INTO readings (sensor,location,temperature,altitude,pressure,timestamp) VALUES ('${sensor}', '${location}', '${temperature}', '${altitude}', '${pressure}', '${ts}');`
+      client.query(`INSERT INTO readings (sensor,location,temperature,humidity,pressure,altitude,timestamp) VALUES ('${sensor}', '${location}', '${temperature}', '${humidity}', '${pressure}', '${altitude}', '${ts}');`
       , (err, res) => {
         try {
           if (err) throw err;
