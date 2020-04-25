@@ -1,0 +1,22 @@
+{
+  "name": "esp32-bme280",
+  "version": "1.0.0",
+  "description": "esp32-bme280 package",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \\\"Error: no test specified\\\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adihendro/esp32-bme280.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adihendro/esp32-bme280/issues"
+  },
+  "homepage": "https://github.com/adihendro/esp32-bme280#readme",
+  "dependencies": {
+    "package-lock": "^1.0.3"
+  }
+}
